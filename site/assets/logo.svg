@@ -1,0 +1,24 @@
+<svg width="240" height="64" viewBox="0 0 240 64" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Open Playlist">
+  <defs>
+    <linearGradient id="opGrad" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#7C3AED"/>
+      <stop offset="1" stop-color="#06B6D4"/>
+    </linearGradient>
+  </defs>
+  <!-- Mark: an open "O" formed by a sound wave / orbit -->
+  <g transform="translate(4 4)">
+    <circle cx="28" cy="28" r="26" fill="url(#opGrad)"/>
+    <!-- equalizer bars -->
+    <rect x="15" y="24" width="4.5" height="8" rx="2.25" fill="#fff"/>
+    <rect x="22.75" y="17" width="4.5" height="22" rx="2.25" fill="#fff"/>
+    <rect x="30.5" y="13" width="4.5" height="30" rx="2.25" fill="#fff"/>
+    <rect x="38.25" y="20" width="4.5" height="16" rx="2.25" fill="#fff"/>
+    <!-- open gap (orbit dot) -->
+    <circle cx="48" cy="10" r="5" fill="#fff" stroke="url(#opGrad)" stroke-width="2.5"/>
+  </g>
+  <!-- Wordmark -->
+  <g transform="translate(70 0)">
+    <text x="0" y="28" font-family="'Segoe UI', system-ui, sans-serif" font-size="22" font-weight="700" fill="#7C3AED">Open</text>
+    <text x="0" y="52" font-family="'Segoe UI', system-ui, sans-serif" font-size="22" font-weight="700" fill="#06B6D4">Playlist</text>
+  </g>
+</svg>
