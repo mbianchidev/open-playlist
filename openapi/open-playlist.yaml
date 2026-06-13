@@ -202,6 +202,39 @@ components:
           type: integer
           description: Track duration in seconds.
           example: 200
+        release_date:
+          type: string
+          format: date
+          description: Full release (publication) date of the track, when known.
+          example: "2020-03-20"
+        release_year:
+          type: integer
+          description: Year of publication. Useful when only the year is known.
+          example: 2020
+        genre:
+          type: string
+          description: Primary genre of the track.
+          example: "Synth-pop"
+        track_number:
+          type: integer
+          description: Position of the track within its album or disc.
+          example: 9
+        disc_number:
+          type: integer
+          description: Disc number for multi-disc albums.
+          example: 1
+        explicit:
+          type: boolean
+          description: Indicates whether the track contains explicit content.
+          example: false
+        composer:
+          type: string
+          description: Composer or songwriter credited for the track.
+          example: "Abel Tesfaye"
+        label:
+          type: string
+          description: Record label that published the track.
+          example: "XO / Republic Records"
         isrc:
           type: string
           description: International Standard Recording Code.
