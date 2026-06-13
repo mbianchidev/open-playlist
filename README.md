@@ -48,6 +48,14 @@ An interactive API reference and project landing page are published to GitHub Pa
 | `artist`         | string            | Primary artist name                              |
 | `album`          | string            | Album name                                       |
 | `duration`       | integer           | Duration in seconds                              |
+| `release_date`   | string (date)     | Full release (publication) date, when known      |
+| `release_year`   | integer           | Year of publication                              |
+| `genre`          | string            | Primary genre of the track                       |
+| `track_number`   | integer           | Position of the track within its album or disc   |
+| `disc_number`    | integer           | Disc number for multi-disc albums                |
+| `explicit`       | boolean           | Whether the track contains explicit content      |
+| `composer`       | string            | Composer or songwriter credited                  |
+| `label`          | string            | Record label that published the track            |
 | `isrc`           | string            | International Standard Recording Code            |
 | `artwork_uri`    | string (URI)      | Track/album artwork URI                          |
 | `provider_uris`  | object            | Map of provider names to their track URIs        |
