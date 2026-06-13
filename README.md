@@ -22,6 +22,8 @@ Music is for everyone, everywhere. Playlists should not be prisoners of platform
 
 The full OpenAPI specification is available at [`openapi/open-playlist.yaml`](openapi/open-playlist.yaml).
 
+An interactive API reference and project landing page are published to GitHub Pages at **https://mbianchidev.github.io/open-playlist/** (deployed automatically from the [`site/`](site/) directory via [GitHub Actions](.github/workflows/deploy-pages.yml)).
+
 ### Core Data Model
 
 #### Playlist Object

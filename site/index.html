@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Open Playlist — Music Without Walls</title>
+  <meta name="description" content="A universal, open, and interoperable playlist format that any music service can adopt — move, share, and enjoy your playlists without walled gardens or vendor lock-in." />
+  <meta property="og:title" content="Open Playlist — Music Without Walls" />
+  <meta property="og:description" content="A universal, open, and interoperable playlist format. Move your playlists across Spotify, Apple Music, Tidal, YouTube Music, Deezer and beyond." />
+  <meta property="og:type" content="website" />
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="./" aria-label="Open Playlist home">
+      <img src="assets/logo.svg" alt="Open Playlist" height="40" />
+    </a>
+    <nav class="nav">
+      <a href="#why">Why</a>
+      <a href="#how">How it works</a>
+      <a href="#model">Data model</a>
+      <a href="api.html">API Reference</a>
+      <a class="nav-cta" href="https://github.com/mbianchidev/open-playlist" target="_blank" rel="noopener">GitHub</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-inner">
+        <p class="eyebrow">Music Without Walls</p>
+        <h1>One playlist format.<br /><span class="grad-text">Every music service.</span></h1>
+        <p class="lede">
+          Open Playlist is a universal, open, and interoperable playlist format that any
+          music service can adopt — so you can move, share, and enjoy your playlists
+          without barriers, walled gardens, or vendor lock-in.
+        </p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="api.html">Explore the API</a>
+          <a class="btn btn-ghost" href="https://github.com/mbianchidev/open-playlist/blob/main/openapi/open-playlist.yaml" target="_blank" rel="noopener">View OpenAPI spec</a>
+        </div>
+        <div class="providers" aria-label="Supported platforms">
+          <span>Spotify</span><span>Apple Music</span><span>Tidal</span><span>YouTube Music</span><span>Deezer</span><span>&amp; beyond</span>
+        </div>
+      </div>
+    </section>
+
+    <section id="why" class="section">
+      <h2>Why it matters</h2>
+      <p class="section-lede">
+        Music is for everyone, everywhere. Playlists should not be prisoners of platforms.
+        By establishing an open standard, we defend the rights of listeners.
+      </p>
+      <div class="cards">
+        <article class="card">
+          <div class="card-icon">🔓</div>
+          <h3>Own your music</h3>
+          <p>Control, migrate, and share your playlists on your own terms — not the platform's.</p>
+        </article>
+        <article class="card">
+          <div class="card-icon">🔁</div>
+          <h3>Real portability</h3>
+          <p>Move seamlessly between services. Switch providers without leaving your playlists behind.</p>
+        </article>
+        <article class="card">
+          <div class="card-icon">✨</div>
+          <h3>Let innovation thrive</h3>
+          <p>An open format opens the door for new services, insights, and creativity to flourish.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="how" class="section section-alt">
+      <h2>How it works</h2>
+      <p class="section-lede">
+        Providers integrate by implementing <strong>adapters</strong> that translate between
+        their proprietary format and the Open Playlist format. Four endpoints do the heavy lifting.
+      </p>
+      <div class="steps">
+        <div class="step"><span class="step-num">1</span><div><h3>Adopt the format</h3><p>Map your internal playlist and track data to the universal Open Playlist schema.</p></div></div>
+        <div class="step"><span class="step-num">2</span><div><h3>Import &amp; export</h3><p>Bring playlists in from any provider, and push them back out to any target service.</p></div></div>
+        <div class="step"><span class="step-num">3</span><div><h3>Match across platforms</h3><p>Use ISRC codes, provider URIs, and fuzzy matching to keep tracks aligned everywhere.</p></div></div>
+      </div>
+      <div class="endpoints">
+        <code><span class="m get">GET</span> /open-playlists/{userId}</code>
+        <code><span class="m get">GET</span> /open-playlists/{playlistId}</code>
+        <code><span class="m post">POST</span> /open-playlists/import</code>
+        <code><span class="m post">POST</span> /open-playlists/export</code>
+      </div>
+    </section>
+
+    <section id="model" class="section">
+      <h2>A simple, extensible data model</h2>
+      <p class="section-lede">
+        Two core objects — Playlist and Track — designed to be provider-agnostic and easy to extend.
+      </p>
+      <div class="model-grid">
+        <div class="model-col">
+          <h3>Playlist</h3>
+          <ul>
+            <li><code>id</code> · provider-agnostic identifier</li>
+            <li><code>name</code> · <code>description</code> · <code>photo</code></li>
+            <li><code>tracks</code> · ordered list of tracks</li>
+            <li><code>owner_id</code></li>
+            <li><code>created_at</code> · <code>updated_at</code></li>
+          </ul>
+        </div>
+        <div class="model-col">
+          <h3>Track</h3>
+          <ul>
+            <li><code>id</code> · <code>title</code> · <code>artist</code></li>
+            <li><code>album</code> · <code>duration</code> · <code>isrc</code></li>
+            <li><code>artwork_uri</code></li>
+            <li><code>provider_uris</code> · cross-platform links</li>
+            <li><code>metadata</code> · extensible key-value data</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta-band">
+      <h2>Ready to break down the walls?</h2>
+      <p>Dive into the full API contract or start building an adapter today.</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="api.html">Read the API Reference</a>
+        <a class="btn btn-ghost" href="https://github.com/mbianchidev/open-playlist" target="_blank" rel="noopener">Contribute on GitHub</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <img src="assets/logo.svg" alt="Open Playlist" height="36" />
+    <p>An open standard for playlist portability. Released under the MIT License.</p>
+    <p class="muted">© <span id="year"></span> Open Playlist contributors</p>
+  </footer>
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>

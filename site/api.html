@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>API Reference — Open Playlist</title>
+  <meta name="description" content="Interactive reference for the Open Playlist OpenAPI specification." />
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+  <link rel="stylesheet" href="styles.css" />
+  <style>body { margin: 0; }</style>
+</head>
+<body>
+  <div class="api-topbar">
+    <a class="brand" href="./" aria-label="Open Playlist home">
+      <img src="assets/logo.svg" alt="Open Playlist" height="36" />
+    </a>
+    <a class="back" href="./">← Back to home</a>
+  </div>
+  <div id="redoc-container">
+    <noscript>
+      <p style="padding:2rem;text-align:center">
+        This API reference requires JavaScript. You can view the raw
+        <a href="open-playlist.yaml">OpenAPI specification</a> directly.
+      </p>
+    </noscript>
+  </div>
+  <script
+    src="https://cdn.redoc.ly/redoc/latest/bundles/redoc.standalone.js"
+    onerror="document.getElementById('redoc-container').innerHTML='&lt;p style=\'padding:2rem;text-align:center\'&gt;Unable to load the interactive viewer. View the raw &lt;a href=\'open-playlist.yaml\'&gt;OpenAPI specification&lt;/a&gt; instead.&lt;/p&gt;'"></script>
+  <script>
+    if (window.Redoc) Redoc.init(
+      'open-playlist.yaml',
+      {
+        theme: {
+          colors: { primary: { main: '#7c3aed' } },
+          typography: {
+            fontFamily: '"Segoe UI", system-ui, -apple-system, Roboto, Helvetica, Arial, sans-serif',
+            headings: { fontFamily: '"Segoe UI", system-ui, sans-serif' }
+          }
+        },
+        hideDownloadButton: false,
+        expandResponses: '200,201'
+      },
+      document.getElementById('redoc-container')
+    );
+  </script>
+</body>
+</html>
