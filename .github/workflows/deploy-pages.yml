@@ -7,9 +7,14 @@ on:
       - "site/**"
       - ".github/workflows/deploy-pages.yml"
   schedule:
-    # Refresh the published API spec from open-playlist-engine every 6 hours.
+    # Refresh at 00:17, 06:17, 12:17, and 18:17 UTC.
     - cron: "17 */6 * * *"
   workflow_dispatch:
+    inputs:
+      spec_url:
+        description: "Optional OpenAPI spec URL to publish for this run"
+        required: false
+        type: string
 
 # Allow the workflow to publish to GitHub Pages.
 permissions:
@@ -26,7 +31,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     env:
-      OPENAPI_SPEC_URL: https://raw.githubusercontent.com/mbianchidev/open-playlist-engine/main/openapi/open-playlist.yaml
+      OPENAPI_SPEC_URL: ${{ github.event.inputs.spec_url || 'https://raw.githubusercontent.com/mbianchidev/open-playlist-engine/main/openapi/open-playlist.yaml' }}
       # Optional for public specs; required if open-playlist-engine is private.
       OPENAPI_SPEC_TOKEN: ${{ secrets.OPEN_PLAYLIST_ENGINE_TOKEN }}
     steps:
@@ -40,11 +45,7 @@ jobs:
           # Publish the canonical OpenAPI spec from open-playlist-engine alongside the site.
           curl_args=(--fail --location --show-error --silent --retry 3)
           if [ -n "$OPENAPI_SPEC_TOKEN" ]; then
-            curl_config="$(mktemp)"
-            trap 'rm -f "$curl_config"' EXIT
-            chmod 600 "$curl_config"
-            printf 'header = "Authorization: %s %s"\n' "Bearer" "$OPENAPI_SPEC_TOKEN" > "$curl_config"
-            curl_args+=(--config "$curl_config")
+            curl_args+=(--header "Authorization: Bearer ""$OPENAPI_SPEC_TOKEN")
           fi
           curl "${curl_args[@]}" "$OPENAPI_SPEC_URL" --output _site/open-playlist.yaml
 
