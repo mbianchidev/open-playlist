@@ -7,14 +7,9 @@ on:
       - "site/**"
       - ".github/workflows/deploy-pages.yml"
   schedule:
-    # Refresh at 00:00, 06:00, 12:00, and 18:00 UTC.
+    # Refresh the published API spec from open-playlist-engine every 6 hours.
     - cron: "0 */6 * * *"
   workflow_dispatch:
-    inputs:
-      spec_url:
-        description: "Optional OpenAPI spec URL to publish for this run"
-        required: false
-        type: string
 
 # Allow the workflow to publish to GitHub Pages.
 permissions:
@@ -31,7 +26,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     env:
-      OPENAPI_SPEC_URL: ${{ github.event.inputs.spec_url || 'https://raw.githubusercontent.com/mbianchidev/open-playlist-engine/main/openapi/open-playlist.yaml' }}
+      OPENAPI_SPEC_URL: https://raw.githubusercontent.com/mbianchidev/open-playlist-engine/main/openapi/open-playlist.yaml
       # Optional for public specs; required if open-playlist-engine is private.
       OPENAPI_SPEC_TOKEN: ${{ secrets.OPEN_PLAYLIST_ENGINE_TOKEN }}
     steps:
