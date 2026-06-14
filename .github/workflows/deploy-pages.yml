@@ -5,8 +5,10 @@ on:
     branches: [main]
     paths:
       - "site/**"
-      - "openapi/**"
       - ".github/workflows/deploy-pages.yml"
+  schedule:
+    # Spec changes in open-playlist-engine are picked up by this periodic schedule.
+    - cron: "0 */6 * * *"
   workflow_dispatch:
 
 # Allow the workflow to publish to GitHub Pages.
@@ -23,6 +25,10 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      OPENAPI_SPEC_URL: https://raw.githubusercontent.com/mbianchidev/open-playlist-engine/main/openapi/open-playlist.yaml
+      # Optional for public specs; required if open-playlist-engine is private.
+      OPENAPI_SPEC_TOKEN: ${{ secrets.OPEN_PLAYLIST_ENGINE_TOKEN }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -31,8 +37,12 @@ jobs:
         run: |
           mkdir -p _site
           cp -r site/. _site/
-          # Publish the OpenAPI spec alongside the site so the API reference can load it.
-          cp openapi/open-playlist.yaml _site/open-playlist.yaml
+          # Publish the canonical OpenAPI spec from open-playlist-engine alongside the site.
+          curl_args=(--fail --location --show-error --silent --retry 3)
+          if [ -n "$OPENAPI_SPEC_TOKEN" ]; then
+            curl_args+=(--header "Authorization: Bearer "$OPENAPI_SPEC_TOKEN)
+          fi
+          curl "${curl_args[@]}" "$OPENAPI_SPEC_URL" --output _site/open-playlist.yaml
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3

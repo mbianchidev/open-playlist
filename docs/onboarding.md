@@ -8,7 +8,7 @@ The Open Playlist API defines a universal, interoperable playlist format. Provid
 
 Key resources:
 
-- [OpenAPI Specification](../openapi/open-playlist.yaml) — full API contract
+- [OpenAPI Specification](https://github.com/mbianchidev/open-playlist-engine/blob/main/openapi/open-playlist.yaml) — full API contract
 - [README](../README.md) — vision, mission, and data model overview
 
 ## Integration Steps
@@ -187,7 +187,7 @@ Reliable cross-platform track matching is the hardest part of playlist interoper
 ## FAQ
 
 **Q: What fields are required in a Playlist?**
-A: `id`, `name`, `tracks`, `owner_id`, `created_at`, and `updated_at`. See the [OpenAPI spec](../openapi/open-playlist.yaml) for details.
+A: `id`, `name`, `tracks`, `owner_id`, `created_at`, and `updated_at`. See the [OpenAPI spec](https://github.com/mbianchidev/open-playlist-engine/blob/main/openapi/open-playlist.yaml) for details.
 
 **Q: What fields are required in a Track?**
 A: `id`, `title`, and `artist`. All other fields are optional but recommended for better cross-platform matching.
