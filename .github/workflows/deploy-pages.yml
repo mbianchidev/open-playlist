@@ -8,7 +8,7 @@ on:
       - ".github/workflows/deploy-pages.yml"
   schedule:
     # Spec changes in open-playlist-engine are picked up by this periodic schedule.
-    - cron: "0 */6 * * *"
+    - cron: "20 4 * * *"
   workflow_dispatch:
 
 # Allow the workflow to publish to GitHub Pages.
