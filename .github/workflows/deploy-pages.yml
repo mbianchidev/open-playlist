@@ -7,7 +7,7 @@ on:
       - "site/**"
       - ".github/workflows/deploy-pages.yml"
   schedule:
-    # Spec changes in open-playlist-engine are picked up by this schedule or manual dispatch.
+    # Spec changes in open-playlist-engine are picked up by this periodic schedule.
     - cron: "0 */6 * * *"
   workflow_dispatch:
 
