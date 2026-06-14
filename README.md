@@ -20,9 +20,10 @@ Music is for everyone, everywhere. Playlists should not be prisoners of platform
 
 ## The Open Playlist API Specification
 
-The full OpenAPI specification is available at [`openapi/open-playlist.yaml`](openapi/open-playlist.yaml).
+The canonical OpenAPI specification is maintained in
+[`open-playlist-engine`](https://github.com/mbianchidev/open-playlist-engine/blob/main/openapi/open-playlist.yaml).
 
-An interactive API reference and project landing page are published to GitHub Pages at **https://mbianchidev.github.io/open-playlist/** (deployed automatically from the [`site/`](site/) directory via [GitHub Actions](.github/workflows/deploy-pages.yml)).
+An interactive API reference and project landing page are published to GitHub Pages at **https://mbianchidev.github.io/open-playlist/** (deployed automatically from the [`site/`](site/) directory via [GitHub Actions](.github/workflows/deploy-pages.yml)). The Pages workflow fetches and publishes the latest canonical spec as [`open-playlist.yaml`](https://mbianchidev.github.io/open-playlist/open-playlist.yaml), including on a periodic schedule so spec-only changes in `open-playlist-engine` are picked up without code changes here.
 
 ### Core Data Model
 
@@ -86,7 +87,7 @@ lyricists, and engineers.
 
 ## Getting Started
 
-- See the [OpenAPI Specification](openapi/open-playlist.yaml) for the full API contract.
+- See the [OpenAPI Specification](https://github.com/mbianchidev/open-playlist-engine/blob/main/openapi/open-playlist.yaml) for the full API contract.
 - See the [Provider Onboarding Guide](docs/onboarding.md) for integration resources, sample requests, reference adapters, and mapping notes.
 
 ## Contributing
