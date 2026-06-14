@@ -69,6 +69,12 @@ Accept: application/json
       "album": "After Hours",
       "duration": 200,
       "isrc": "USUG12000497",
+      "composer": "Abel Tesfaye",
+      "credits": [
+        { "role": "featured_artist", "name": "Daft Punk" },
+        { "role": "producer", "name": "Max Martin" },
+        { "role": "lyricist", "name": "Savan Kotecha" }
+      ],
       "artwork_uri": "https://images.example.com/tracks/blinding-lights.jpg",
       "provider_uris": {
         "spotify": "spotify:track:0VjIjW4GlUZAMYd2vXMi3b",
@@ -165,8 +171,9 @@ Each adapter must implement two core translations:
 
 1. **Track matching** — Match tracks across providers using ISRC codes, title/artist fuzzy matching, or provider URI lookups.
 2. **Metadata mapping** — Map provider-specific fields into the extensible `metadata` object.
-3. **Authentication** — Handle OAuth or API-key flows for the provider's API.
-4. **Error handling** — Gracefully handle unmatched tracks, rate limits, and API failures.
+3. **Credits mapping** — Map contributor information (featured artists, producers, composers, lyricists, engineers) into the structured `credits` array, using a `role` and `name` for each contributor.
+4. **Authentication** — Handle OAuth or API-key flows for the provider's API.
+5. **Error handling** — Gracefully handle unmatched tracks, rate limits, and API failures.
 
 ## Track Mapping Notes
 

@@ -55,11 +55,25 @@ An interactive API reference and project landing page are published to GitHub Pa
 | `disc_number`    | integer           | Disc number for multi-disc albums                |
 | `explicit`       | boolean           | Whether the track contains explicit content      |
 | `composer`       | string            | Composer or songwriter credited                  |
+| `credits`        | array of Credit   | Detailed contributor credits (featured artists, producers, composers, lyricists, etc.) |
 | `label`          | string            | Record label that published the track            |
 | `isrc`           | string            | International Standard Recording Code            |
 | `artwork_uri`    | string (URI)      | Track/album artwork URI                          |
 | `provider_uris`  | object            | Map of provider names to their track URIs        |
 | `metadata`       | object            | Extensible key-value metadata                    |
+
+#### Credit Object
+
+Captures an individual contributor on a track, allowing rich credits beyond the
+primary `artist` and `composer` fields—such as featured artists, producers,
+lyricists, and engineers.
+
+| Field        | Type         | Description                                                              |
+|--------------|--------------|--------------------------------------------------------------------------|
+| `role`       | string       | Contributor role (e.g. `featured_artist`, `producer`, `composer`, `lyricist`) |
+| `name`       | string       | Name of the person or entity credited                                    |
+| `instrument` | string       | Optional instrument or specialization for performer credits              |
+| `uri`        | string (URI) | Optional URI identifying the contributor                                 |
 
 ### Key Endpoints
 
