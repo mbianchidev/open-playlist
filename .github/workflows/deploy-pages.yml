@@ -27,6 +27,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       OPENAPI_SPEC_URL: https://raw.githubusercontent.com/mbianchidev/open-playlist-engine/main/openapi/open-playlist.yaml
+      OPENAPI_SPEC_TOKEN: ${{ secrets.OPEN_PLAYLIST_ENGINE_TOKEN }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -36,7 +37,13 @@ jobs:
           mkdir -p _site
           cp -r site/. _site/
           # Publish the canonical OpenAPI spec from open-playlist-engine alongside the site.
-          curl --fail --location --show-error --silent --retry 3 "$OPENAPI_SPEC_URL" --output _site/open-playlist.yaml
+          curl_args=(--fail --location --show-error --silent --retry 3)
+          if [ -n "$OPENAPI_SPEC_TOKEN" ]; then
+            auth_scheme="Bearer"
+            auth_header="Authorization: ${auth_scheme} ${OPENAPI_SPEC_TOKEN}"
+            curl_args+=(--header "$auth_header")
+          fi
+          curl "${curl_args[@]}" "$OPENAPI_SPEC_URL" --output _site/open-playlist.yaml
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
