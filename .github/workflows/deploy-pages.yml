@@ -7,7 +7,7 @@ on:
       - "site/**"
       - ".github/workflows/deploy-pages.yml"
   schedule:
-    # Refresh the published API spec from open-playlist-engine every 6 hours.
+    # Spec changes in open-playlist-engine are picked up by this schedule or manual dispatch.
     - cron: "0 */6 * * *"
   workflow_dispatch:
 
