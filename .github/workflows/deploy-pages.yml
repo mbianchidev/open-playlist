@@ -7,7 +7,7 @@ on:
       - "site/**"
       - ".github/workflows/deploy-pages.yml"
   schedule:
-    # Refresh the published API spec from open-playlist-engine periodically.
+    # Refresh the published API spec from open-playlist-engine every 6 hours.
     - cron: "17 */6 * * *"
   workflow_dispatch:
 
@@ -39,9 +39,12 @@ jobs:
           # Publish the canonical OpenAPI spec from open-playlist-engine alongside the site.
           curl_args=(--fail --location --show-error --silent --retry 3)
           if [ -n "$OPENAPI_SPEC_TOKEN" ]; then
+            curl_config="$(mktemp)"
+            trap 'rm -f "$curl_config"' EXIT
+            chmod 600 "$curl_config"
             auth_scheme="Bearer"
-            auth_header="Authorization: ${auth_scheme} ${OPENAPI_SPEC_TOKEN}"
-            curl_args+=(--header "$auth_header")
+            printf 'header = "Authorization: %s %s"\n' "$auth_scheme" "$OPENAPI_SPEC_TOKEN" > "$curl_config"
+            curl_args+=(--config "$curl_config")
           fi
           curl "${curl_args[@]}" "$OPENAPI_SPEC_URL" --output _site/open-playlist.yaml
 
