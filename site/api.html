@@ -5,7 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>API Reference — Open Playlist</title>
   <meta name="description" content="Interactive reference for the Open Playlist OpenAPI specification." />
+  <meta name="theme-color" content="#0b1120" />
   <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+  <script src="theme.js"></script>
   <link rel="stylesheet" href="styles.css" />
   <style>body { margin: 0; }</style>
 </head>
@@ -14,7 +16,13 @@
     <a class="brand" href="./" aria-label="Open Playlist home">
       <img src="assets/logo.svg" alt="Open Playlist" height="36" />
     </a>
-    <a class="back" href="./">← Back to home</a>
+    <div class="api-actions">
+      <button class="theme-toggle" type="button" data-theme-toggle>
+        <span class="theme-toggle-icon" aria-hidden="true"></span>
+        <span data-theme-toggle-label>Light mode</span>
+      </button>
+      <a class="back" href="./">← Back to home</a>
+    </div>
   </div>
   <div id="redoc-container">
     <noscript>
@@ -28,21 +36,98 @@
     src="https://cdn.redoc.ly/redoc/latest/bundles/redoc.standalone.js"
     onerror="document.getElementById('redoc-container').innerHTML='&lt;p style=\'padding:2rem;text-align:center\'&gt;Unable to load the interactive viewer. View the raw &lt;a href=\'open-playlist.yaml\'&gt;OpenAPI specification&lt;/a&gt; instead.&lt;/p&gt;'"></script>
   <script>
-    if (window.Redoc) Redoc.init(
-      'open-playlist.yaml',
-      {
-        theme: {
-          colors: { primary: { main: '#7c3aed' } },
-          typography: {
-            fontFamily: '"Segoe UI", system-ui, -apple-system, Roboto, Helvetica, Arial, sans-serif',
-            headings: { fontFamily: '"Segoe UI", system-ui, sans-serif' }
+    function redocTheme(mode) {
+      const dark = mode === 'dark';
+
+      return {
+        colors: {
+          primary: { main: dark ? '#a78bfa' : '#7c3aed' },
+          success: { main: dark ? '#4ade80' : '#15803d' },
+          warning: { main: dark ? '#fbbf24' : '#b45309' },
+          error: { main: dark ? '#f87171' : '#b91c1c' },
+          gray: {
+            50: dark ? '#172033' : '#fafafa',
+            100: dark ? '#1e293b' : '#f5f5f5'
+          },
+          text: {
+            primary: dark ? '#f8fafc' : '#0f172a',
+            secondary: dark ? '#cbd5e1' : '#475569'
+          },
+          border: {
+            dark: dark ? '#475569' : 'rgba(15, 23, 42, 0.15)',
+            light: dark ? '#334155' : '#ffffff'
           }
         },
-        hideDownloadButton: false,
-        expandResponses: '200,201'
-      },
-      document.getElementById('redoc-container')
-    );
+        schema: {
+          linesColor: dark ? '#475569' : '#c4b5fd',
+          typeNameColor: dark ? '#cbd5e1' : '#475569',
+          typeTitleColor: dark ? '#e2e8f0' : '#334155',
+          requireLabelColor: dark ? '#fca5a5' : '#b91c1c',
+          nestedBackground: dark ? '#111827' : '#fafafa',
+          arrow: { color: dark ? '#94a3b8' : '#64748b' }
+        },
+        typography: {
+          fontFamily: '"Segoe UI", system-ui, -apple-system, Roboto, Helvetica, Arial, sans-serif',
+          headings: {
+            fontFamily: '"Segoe UI", system-ui, sans-serif',
+            fontWeight: '600'
+          },
+          code: {
+            color: dark ? '#e9d5ff' : '#6d28d9',
+            backgroundColor: dark ? '#1e293b' : 'rgba(124, 58, 237, 0.08)'
+          },
+          links: {
+            color: dark ? '#a78bfa' : '#7c3aed',
+            visited: dark ? '#c4b5fd' : '#6d28d9',
+            hover: dark ? '#67e8f9' : '#0891b2'
+          }
+        },
+        sidebar: {
+          backgroundColor: dark ? '#111827' : '#fafafa',
+          textColor: dark ? '#cbd5e1' : '#334155',
+          activeTextColor: dark ? '#c4b5fd' : '#6d28d9'
+        },
+        rightPanel: {
+          backgroundColor: dark ? '#090e1a' : '#263238',
+          textColor: '#f8fafc',
+          servers: {
+            overlay: {
+              backgroundColor: dark ? '#172033' : '#fafafa',
+              textColor: dark ? '#f8fafc' : '#263238'
+            },
+            url: { backgroundColor: dark ? '#1e293b' : '#ffffff' }
+          }
+        },
+        codeBlock: {
+          backgroundColor: dark ? '#050810' : '#1d272b'
+        },
+        fab: {
+          backgroundColor: dark ? '#1e293b' : '#f2f2f2',
+          color: dark ? '#c4b5fd' : '#6d28d9'
+        }
+      };
+    }
+
+    function renderRedoc(mode, preserveScroll) {
+      if (!window.Redoc) return;
+
+      const scrollPosition = window.scrollY;
+      Redoc.init(
+        'open-playlist.yaml',
+        {
+          theme: redocTheme(mode),
+          hideDownloadButton: false,
+          expandResponses: '200,201'
+        },
+        document.getElementById('redoc-container'),
+        preserveScroll ? () => window.scrollTo(0, scrollPosition) : undefined
+      );
+    }
+
+    renderRedoc(window.OpenPlaylistTheme.current(), false);
+    document.addEventListener('themechange', (event) => {
+      renderRedoc(event.detail.theme, true);
+    });
   </script>
 </body>
 </html>
