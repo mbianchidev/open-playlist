@@ -8,7 +8,9 @@
   <meta property="og:title" content="Open Playlist — Music Without Walls" />
   <meta property="og:description" content="A universal, open, and interoperable playlist format. Move your playlists across Spotify, Apple Music, Tidal, YouTube Music, Deezer and beyond." />
   <meta property="og:type" content="website" />
+  <meta name="theme-color" content="#0b1120" />
   <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+  <script src="theme.js"></script>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
@@ -22,6 +24,10 @@
       <a href="#model">Data model</a>
       <a href="#implementations">Implementations</a>
       <a href="api.html">API Reference</a>
+      <button class="theme-toggle" type="button" data-theme-toggle>
+        <span class="theme-toggle-icon" aria-hidden="true"></span>
+        <span data-theme-toggle-label>Light mode</span>
+      </button>
       <a class="nav-cta" href="https://github.com/mbianchidev/open-playlist" target="_blank" rel="noopener">GitHub</a>
     </nav>
   </header>
