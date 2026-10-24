@@ -23,8 +23,11 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     env:
       OPENAPI_SPEC_URL: https://raw.githubusercontent.com/mbianchidev/open-playlist-engine/main/openapi/open-playlist.yaml
       # Optional for public specs; required if open-playlist-engine is private.
@@ -40,7 +43,7 @@ jobs:
           # Publish the canonical OpenAPI spec from open-playlist-engine alongside the site.
           curl_args=(--fail --location --show-error --silent --retry 3)
           if [ -n "$OPENAPI_SPEC_TOKEN" ]; then
-            curl_args+=(--header "Authorization: Bearer "$OPENAPI_SPEC_TOKEN)
+            curl_args+=(--header "Authorization: Bearer $OPENAPI_SPEC_TOKEN")
           fi
           curl "${curl_args[@]}" "$OPENAPI_SPEC_URL" --output _site/open-playlist.yaml
 
@@ -49,13 +52,6 @@ jobs:
         with:
           path: _site
 
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@368f82528645a54fb793d4d04e342629a3f51346 # v5.0.1
