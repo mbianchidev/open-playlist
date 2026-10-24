@@ -26,6 +26,8 @@ The current contract uses **OpenAPI 3.0.3** and is versioned as **0.2.0**.
 
 An interactive API reference and project landing page are published to GitHub Pages at **https://mbianchidev.github.io/open-playlist/** (deployed automatically from the [`site/`](site/) directory via [GitHub Actions](.github/workflows/deploy-pages.yml)). The Pages workflow fetches and publishes the latest canonical spec as [`open-playlist.yaml`](https://mbianchidev.github.io/open-playlist/open-playlist.yaml), including on a periodic schedule so spec-only changes in `open-playlist-engine` are picked up without code changes here.
 
+See the [deployment guide](docs/deployment.md) for triggers, manual runs, and retries.
+
 ### What's New in 0.2.0
 
 - **Local playlist-file imports** validate bounded uploads locally, report parsing issues, and expose expiring normalized previews that can be retrieved or discarded.
