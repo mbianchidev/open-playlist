@@ -32,102 +32,26 @@
       </p>
     </noscript>
   </div>
-  <script
-    src="https://cdn.redoc.ly/redoc/latest/bundles/redoc.standalone.js"
-    onerror="document.getElementById('redoc-container').innerHTML='&lt;p style=\'padding:2rem;text-align:center\'&gt;Unable to load the interactive viewer. View the raw &lt;a href=\'open-playlist.yaml\'&gt;OpenAPI specification&lt;/a&gt; instead.&lt;/p&gt;'"></script>
-  <script>
-    function redocTheme(mode) {
-      const dark = mode === 'dark';
+  <script type="module">
+    const container = document.getElementById('redoc-container');
+    const specUrl = 'open-playlist.yaml';
 
-      return {
-        colors: {
-          primary: { main: dark ? '#a78bfa' : '#7c3aed' },
-          success: { main: dark ? '#4ade80' : '#15803d' },
-          warning: { main: dark ? '#fbbf24' : '#b45309' },
-          error: { main: dark ? '#f87171' : '#b91c1c' },
-          gray: {
-            50: dark ? '#172033' : '#fafafa',
-            100: dark ? '#1e293b' : '#f5f5f5'
-          },
-          text: {
-            primary: dark ? '#f8fafc' : '#0f172a',
-            secondary: dark ? '#cbd5e1' : '#475569'
-          },
-          border: {
-            dark: dark ? '#475569' : 'rgba(15, 23, 42, 0.15)',
-            light: dark ? '#334155' : '#ffffff'
-          }
-        },
-        schema: {
-          linesColor: dark ? '#475569' : '#c4b5fd',
-          typeNameColor: dark ? '#cbd5e1' : '#475569',
-          typeTitleColor: dark ? '#e2e8f0' : '#334155',
-          requireLabelColor: dark ? '#fca5a5' : '#b91c1c',
-          nestedBackground: dark ? '#111827' : '#fafafa',
-          arrow: { color: dark ? '#94a3b8' : '#64748b' }
-        },
-        typography: {
-          fontFamily: '"Segoe UI", system-ui, -apple-system, Roboto, Helvetica, Arial, sans-serif',
-          headings: {
-            fontFamily: '"Segoe UI", system-ui, sans-serif',
-            fontWeight: '600'
-          },
-          code: {
-            color: dark ? '#e9d5ff' : '#6d28d9',
-            backgroundColor: dark ? '#1e293b' : 'rgba(124, 58, 237, 0.08)'
-          },
-          links: {
-            color: dark ? '#a78bfa' : '#7c3aed',
-            visited: dark ? '#c4b5fd' : '#6d28d9',
-            hover: dark ? '#67e8f9' : '#0891b2'
-          }
-        },
-        sidebar: {
-          backgroundColor: dark ? '#111827' : '#fafafa',
-          textColor: dark ? '#cbd5e1' : '#334155',
-          activeTextColor: dark ? '#c4b5fd' : '#6d28d9'
-        },
-        rightPanel: {
-          backgroundColor: dark ? '#090e1a' : '#263238',
-          textColor: '#f8fafc',
-          servers: {
-            overlay: {
-              backgroundColor: dark ? '#172033' : '#fafafa',
-              textColor: dark ? '#f8fafc' : '#263238'
-            },
-            url: { backgroundColor: dark ? '#1e293b' : '#ffffff' }
-          }
-        },
-        codeBlock: {
-          backgroundColor: dark ? '#050810' : '#1d272b'
-        },
-        fab: {
-          backgroundColor: dark ? '#1e293b' : '#f2f2f2',
-          color: dark ? '#c4b5fd' : '#6d28d9'
-        }
-      };
-    }
-
-    function renderRedoc(mode, preserveScroll) {
-      if (!window.Redoc) return;
-
-      const scrollPosition = window.scrollY;
-      Redoc.init(
-        'open-playlist.yaml',
+    try {
+      const { init } = await import('https://cdn.redoc.ly/redoc/v3.2.0/bundles/redoc.standalone.js');
+      init(
+        specUrl,
         {
-          theme: redocTheme(mode),
-          hideDownloadButton: false,
-          expandResponses: '200,201'
+          disableTelemetry: true,
+          downloadUrls: [{ title: 'Download OpenAPI description', url: specUrl }]
         },
-        document.getElementById('redoc-container'),
-        preserveScroll ? () => window.scrollTo(0, scrollPosition) : undefined
+        container
       );
+    } catch (error) {
+      console.error('Unable to load the interactive API reference.', error);
+      container.innerHTML =
+        '<p style="padding:2rem;text-align:center">Unable to load the interactive viewer. ' +
+        'View the raw <a href="open-playlist.yaml">OpenAPI specification</a> instead.</p>';
     }
-
-    renderRedoc(window.OpenPlaylistTheme.current(), false);
-    document.addEventListener('themechange', (event) => {
-      renderRedoc(event.detail.theme, true);
-    });
   </script>
 </body>
 </html>
