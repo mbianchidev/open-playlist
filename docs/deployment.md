@@ -27,3 +27,15 @@ fails the job before artifact upload or deployment.
 Retrying the job reruns assembly and fetches the current canonical specification
 again before uploading and deploying. There is no separate deployment-only job
 to retry against an earlier artifact.
+
+## Brand assets
+
+The logos, favicons, touch icon, social card and color tokens in `site/` come
+unmodified from the Open Playlist kit in
+[synctune-io/branding](https://github.com/synctune-io/branding)
+(`brands/open-playlist/`). `logo-on-dark.svg` and `logo-on-light.svg` are the
+compact lockups and switch with the site theme. Surface colors in
+`site/styles.css` are tints of the kit's Deep blue; text pairs follow the kit's
+approved contrast pairs. `assets/projects/open-playlist-engine.svg` is Open
+Playlist Engine's own mark from `docs/assets/mark.svg` in
+[open-playlist-engine](https://github.com/mbianchidev/open-playlist-engine).
