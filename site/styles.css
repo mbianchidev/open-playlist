@@ -302,16 +302,22 @@ code {
 .api-actions { display: flex; align-items: center; gap: 1rem; }
 .api-topbar .back { color: var(--slate); font-weight: 600; }
 #redoc-container { min-height: 70vh; background: var(--bg); }
-#redoc-container .redoc-wrap,
-#redoc-container .api-content { background: var(--bg); }
 
-:root:not([data-theme="light"]) #redoc-container table tr {
-  background-color: var(--surface) !important;
-  border-color: var(--border) !important;
+/* Redoc 3 follows <html data-theme>; map its CSS variables to the site palette. */
+:root:has(.redoc.light),
+:root:has(.redoc.dark) {
+  --font-family-base: "Segoe UI", system-ui, -apple-system, Roboto, Helvetica, Arial, sans-serif;
+  --color-primary-base: var(--purple);
+  --link-color-primary: var(--purple);
+  --link-color-primary-hover: var(--cyan);
+  --bg-color: var(--bg);
+  --sidebar-bg-color: var(--bg-alt);
+  --text-color-primary: var(--ink);
+  --text-color-secondary: var(--slate);
+  --border-color-primary: var(--border);
 }
-:root:not([data-theme="light"]) #redoc-container table tr:nth-child(2n) {
-  background-color: var(--bg-alt) !important;
-}
+:root:has(.redoc.dark) { --code-block-bg-color: #050810; }
+:root:has(.redoc.light) { --code-block-bg-color: #1d272b; }
 
 @media (max-width: 640px) {
   .site-header { justify-content: center; }
