@@ -2,9 +2,12 @@
 
 The [Pages workflow](../.github/workflows/deploy-pages.yml) copies `site/` into
 `_site/`, downloads the canonical OpenAPI specification as
-`_site/open-playlist.yaml`, uploads the Pages artifact, and deploys it. These steps
-run in one `deploy` job to avoid provisioning a second runner and waiting for an
-inter-job handoff. There is no package installation or compilation step.
+`_site/open-playlist.yaml`, and uploads the Pages artifact in a `build` job. A
+separate `deploy` job (`needs: build`) then deploys that artifact. Deploying in the
+same job as the upload can miss the just-finalized artifact and fail with
+`No artifacts named "github-pages" were found for this workflow run`
+([actions/deploy-pages#451](https://github.com/actions/deploy-pages/issues/451)).
+There is no package installation or compilation step.
 
 ## Triggers
 
@@ -14,19 +17,21 @@ inter-job handoff. There is no package installation or compilation step.
 - Manual runs from **Actions > Deploy GitHub Pages > Run workflow**, selecting
   `main`.
 
-Pull requests do not trigger this deployment workflow. The job retains the
-`github-pages` environment, its deployment URL, and the environment's existing
-`main`-only deployment policy. Workflow permissions and concurrency are unchanged.
+Pull requests do not trigger this deployment workflow. The `deploy` job uses the
+`github-pages` environment, its deployment URL, and the environment's `main`-only
+deployment policy. The workflow defaults to `contents: read`; only the `deploy` job
+gets `pages: write` and `id-token: write`. A single `pages` concurrency group
+cancels in-progress runs when a newer one starts.
 
 ## Specification access and retries
 
 The specification is public. If it becomes private, configure the optional
 `OPEN_PLAYLIST_ENGINE_TOKEN` repository secret with access to it. A failed download
-fails the job before artifact upload or deployment.
+fails the `build` job before artifact upload, so nothing is deployed.
 
-Retrying the job reruns assembly and fetches the current canonical specification
-again before uploading and deploying. There is no separate deployment-only job
-to retry against an earlier artifact.
+**Re-run failed jobs** on a run whose `deploy` job failed redeploys the artifact
+already uploaded by `build`. To fetch the current canonical specification again,
+start a new run from **Run workflow** instead.
 
 ## Brand assets
 
