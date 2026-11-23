@@ -1,40 +1,41 @@
+/* Colors come from the Open Playlist brand kit (synctune-io/branding,
+   brands/open-playlist/colors): Transit blue #2F59F5, Deep blue #142A62,
+   Chalk #F3F5FC and Night tint #9DB4FF. Surfaces are tints of Deep blue. */
 :root {
   color-scheme: dark;
-  --purple: #a78bfa;
-  --cyan: #67e8f9;
-  --ink: #f8fafc;
-  --slate: #cbd5e1;
-  --bg: #0b1120;
-  --bg-alt: #111827;
-  --surface: #172033;
-  --surface-hover: #1e293b;
-  --header-bg: rgba(11, 17, 32, 0.88);
-  --border: #334155;
-  --focus: #67e8f9;
+  --transit-blue: #2f59f5;
+  --deep-blue: #142a62;
+  --chalk: #f3f5fc;
+  --night-tint: #9db4ff;
+  --accent: var(--night-tint);
+  --ink: var(--chalk);
+  --slate: #c3cef0;
+  --bg: #0e1f4a;
+  --bg-alt: #112554;
+  --surface: var(--deep-blue);
+  --surface-hover: #1b3578;
+  --header-bg: rgba(14, 31, 74, 0.9);
+  --border: #2c4690;
+  --focus: var(--night-tint);
   --radius: 14px;
-  --grad: linear-gradient(135deg, #8b5cf6 0%, #0891b2 100%);
-  --hero-purple: rgba(139, 92, 246, 0.2);
-  --hero-cyan: rgba(34, 211, 238, 0.14);
-  --shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+  --hero-glow: rgba(47, 89, 245, 0.28);
+  --shadow: 0 10px 30px rgba(4, 10, 28, 0.4);
 }
 
 :root[data-theme="light"] {
   color-scheme: light;
-  --purple: #7c3aed;
-  --cyan: #0891b2;
-  --ink: #0f172a;
-  --slate: #475569;
-  --bg: #ffffff;
-  --bg-alt: #f8fafc;
+  --accent: var(--transit-blue);
+  --ink: var(--deep-blue);
+  --slate: #3b4d85;
+  --bg: var(--chalk);
+  --bg-alt: #e7ecfa;
   --surface: #ffffff;
-  --surface-hover: #f1f5f9;
-  --header-bg: rgba(255, 255, 255, 0.88);
-  --border: #e2e8f0;
-  --focus: #7c3aed;
-  --grad: linear-gradient(135deg, #7c3aed 0%, #0891b2 100%);
-  --hero-purple: rgba(124, 58, 237, 0.12);
-  --hero-cyan: rgba(6, 182, 212, 0.12);
-  --shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+  --surface-hover: #e7ecfa;
+  --header-bg: rgba(243, 245, 252, 0.9);
+  --border: #c9d3f1;
+  --focus: var(--transit-blue);
+  --hero-glow: rgba(47, 89, 245, 0.14);
+  --shadow: 0 10px 30px rgba(20, 42, 98, 0.08);
 }
 
 * { box-sizing: border-box; }
@@ -51,7 +52,7 @@ body {
   transition: background-color 0.2s ease, color 0.2s ease;
 }
 
-a { color: var(--purple); text-decoration: none; }
+a { color: var(--accent); text-decoration: none; }
 a:hover { text-decoration: underline; }
 a:focus-visible, button:focus-visible {
   outline: 3px solid var(--focus);
@@ -74,13 +75,16 @@ a:focus-visible, button:focus-visible {
   flex-wrap: wrap;
 }
 .brand { display: inline-flex; align-items: center; }
+.logo-light { display: none; }
+:root[data-theme="light"] .logo-dark { display: none; }
+:root[data-theme="light"] .logo-light { display: inline-block; }
 .brand:hover { text-decoration: none; }
 .nav { display: flex; align-items: center; gap: 1.25rem; flex-wrap: wrap; }
 .nav a { color: var(--slate); font-weight: 500; }
 .nav a:hover { color: var(--ink); text-decoration: none; }
 .nav-cta {
-  background: var(--grad);
-  color: #fff !important;
+  background: var(--transit-blue);
+  color: var(--chalk) !important;
   padding: 0.45rem 0.95rem;
   border-radius: 999px;
 }
@@ -104,7 +108,7 @@ a:focus-visible, button:focus-visible {
 }
 .theme-toggle:hover {
   background: var(--surface-hover);
-  border-color: var(--purple);
+  border-color: var(--accent);
   transform: translateY(-1px);
 }
 .theme-toggle-icon::before {
@@ -119,8 +123,7 @@ a:focus-visible, button:focus-visible {
 
 /* Hero */
 .hero {
-  background: radial-gradient(1200px 500px at 50% -100px, var(--hero-purple), transparent),
-              radial-gradient(900px 400px at 80% 0, var(--hero-cyan), transparent);
+  background: radial-gradient(1200px 500px at 50% -100px, var(--hero-glow), transparent);
   padding: 5rem 1.5rem 4rem;
   text-align: center;
 }
@@ -130,7 +133,7 @@ a:focus-visible, button:focus-visible {
   letter-spacing: 0.18em;
   font-size: 0.8rem;
   font-weight: 700;
-  color: var(--purple);
+  color: var(--accent);
   margin: 0 0 0.75rem;
 }
 .hero h1 {
@@ -139,12 +142,7 @@ a:focus-visible, button:focus-visible {
   margin: 0 0 1.2rem;
   letter-spacing: -0.02em;
 }
-.grad-text {
-  background: var(--grad);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-}
+.accent-text { color: var(--accent); }
 .lede {
   font-size: clamp(1.05rem, 2.5vw, 1.25rem);
   color: var(--slate);
@@ -166,7 +164,7 @@ a:focus-visible, button:focus-visible {
   transition: transform 0.15s ease, box-shadow 0.15s ease, opacity 0.15s ease;
 }
 .btn:hover { text-decoration: none; transform: translateY(-1px); }
-.btn-primary { background: var(--grad); color: #fff; box-shadow: var(--shadow); }
+.btn-primary { background: var(--transit-blue); color: var(--chalk); box-shadow: var(--shadow); }
 .btn-ghost { background: var(--surface); color: var(--ink); border: 1px solid var(--border); }
 
 .providers {
@@ -188,7 +186,7 @@ a:focus-visible, button:focus-visible {
 .section h2, .cta-band h2 {
   font-size: clamp(1.7rem, 4vw, 2.4rem);
   text-align: center;
-  margin: 0 0 0.75rem;
+  margin: 0 auto 0.75rem;
   letter-spacing: -0.01em;
 }
 .section-lede {
@@ -208,11 +206,11 @@ a:focus-visible, button:focus-visible {
   padding: 1.75rem;
   box-shadow: var(--shadow);
 }
-.card-icon { font-size: 2rem; }
-.card h3 { margin: 0.6rem 0 0.4rem; font-size: 1.2rem; }
+.card h3 { margin: 0 0 0.4rem; font-size: 1.2rem; }
 .card p { margin: 0; color: var(--slate); }
 .implementation-card { max-width: 680px; margin: 0 auto; text-align: center; }
-.implementation-card .btn { margin-top: 1.25rem; }
+.implementation-mark { display: block; margin: 0 auto 1rem; }
+.implementation-card .hero-actions { margin-top: 1.25rem; }
 
 /* Steps */
 .steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.5rem; margin-bottom: 2.5rem; }
@@ -222,8 +220,8 @@ a:focus-visible, button:focus-visible {
   width: 2.2rem; height: 2.2rem;
   display: grid; place-items: center;
   border-radius: 999px;
-  background: var(--grad);
-  color: #fff;
+  background: var(--transit-blue);
+  color: var(--chalk);
   font-weight: 700;
 }
 .step h3 { margin: 0.2rem 0 0.3rem; font-size: 1.1rem; }
@@ -241,9 +239,10 @@ a:focus-visible, button:focus-visible {
   font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
   font-size: 0.95rem;
 }
-.m { font-weight: 700; padding: 0.1rem 0.5rem; border-radius: 6px; font-size: 0.8rem; color: #fff; }
-.m.get { background: #06b6d4; }
-.m.post { background: #7c3aed; }
+.m { font-weight: 700; padding: 0.1rem 0.5rem; border-radius: 6px; font-size: 0.8rem; }
+.m.get { background: var(--transit-blue); color: var(--chalk); }
+.m.post { background: var(--night-tint); color: var(--deep-blue); }
+.section-note { text-align: center; color: var(--slate); max-width: 680px; margin: 2rem auto 0; }
 
 /* Data model */
 .model-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; }
@@ -268,14 +267,15 @@ code {
 /* CTA band */
 .cta-band {
   text-align: center;
-  background: var(--grad);
-  color: #fff;
+  background: var(--transit-blue);
+  color: var(--chalk);
   padding: 4rem 1.5rem;
 }
-.cta-band h2 { color: #fff; }
+.cta-band h2 { color: var(--chalk); }
 .cta-band p { margin: 0 auto 2rem; max-width: 540px; opacity: 0.95; }
-.cta-band .btn-primary { background: #fff; color: #6d28d9; }
-.cta-band .btn-ghost { background: transparent; color: #fff; border-color: rgba(255, 255, 255, 0.6); }
+.cta-band .btn-primary { background: var(--chalk); color: var(--deep-blue); }
+.cta-band .btn-ghost { background: transparent; color: var(--chalk); border-color: rgba(243, 245, 252, 0.7); }
+.cta-band a:focus-visible { outline-color: var(--chalk); }
 
 /* Footer */
 .site-footer {
@@ -307,17 +307,17 @@ code {
 :root:has(.redoc.light),
 :root:has(.redoc.dark) {
   --font-family-base: "Segoe UI", system-ui, -apple-system, Roboto, Helvetica, Arial, sans-serif;
-  --color-primary-base: var(--purple);
-  --link-color-primary: var(--purple);
-  --link-color-primary-hover: var(--cyan);
+  --color-primary-base: var(--accent);
+  --link-color-primary: var(--accent);
+  --link-color-primary-hover: var(--ink);
   --bg-color: var(--bg);
   --sidebar-bg-color: var(--bg-alt);
   --text-color-primary: var(--ink);
   --text-color-secondary: var(--slate);
   --border-color-primary: var(--border);
 }
-:root:has(.redoc.dark) { --code-block-bg-color: #050810; }
-:root:has(.redoc.light) { --code-block-bg-color: #1d272b; }
+:root:has(.redoc.dark) { --code-block-bg-color: #081436; }
+:root:has(.redoc.light) { --code-block-bg-color: #142a62; }
 
 @media (max-width: 640px) {
   .site-header { justify-content: center; }

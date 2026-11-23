@@ -45,7 +45,7 @@
 
     const themeColor = document.querySelector('meta[name="theme-color"]');
     if (themeColor) {
-      themeColor.content = selectedTheme === "dark" ? "#0b1120" : "#ffffff";
+      themeColor.content = selectedTheme === "dark" ? "#0e1f4a" : "#f3f5fc";
     }
 
     if (persist) {
